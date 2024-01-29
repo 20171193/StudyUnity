@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TestMoveAgent : MonoBehaviour
 {
@@ -9,10 +11,16 @@ public class TestMoveAgent : MonoBehaviour
     public Transform cameraTransform;
     public Rigidbody myRb;
     public BoxCollider myBcol;
+
     public float moveSpeed = 10f;
+    public float rotSpeed = 120f;
+
     public float jumpForce = 5f;
+
     public bool isGround = false;
+
     const int Floor_Layer = 7;
+
     public TestMoveAgent()
     {
         try 
@@ -56,9 +64,10 @@ public class TestMoveAgent : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         Vector3 moveDirection = new Vector3(h, 0, v);
-
+        
         //moveDirection = cameraTransform.TransformDirection(moveDirection);
         this.transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        this.transform.Rotate(new Vector3(0.0f, rotSpeed * h * Time.deltaTime, 0.0f));
     }
 
 

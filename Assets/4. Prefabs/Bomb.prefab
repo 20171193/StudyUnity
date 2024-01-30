@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5753838413333457348}
   - component: {fileID: 7268855050110334453}
   - component: {fileID: -634474202461867591}
+  - component: {fileID: 8621544906057805869}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +52,8 @@ MonoBehaviour:
   turret: {fileID: 0}
   particle: {fileID: 0}
   audioSource: {fileID: -634474202461867591}
-  moveSpeed: 50
+  moveSpeed: 10
+  damage: 20
 --- !u!54 &7268855050110334453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,6 +166,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &8621544906057805869
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111704034661159881}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15571779
+  m_Height: 0.56281614
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.0054647923, z: 0.17487347}
 --- !u!1001 &4532892757024161376
 PrefabInstance:
   m_ObjectHideFlags: 0

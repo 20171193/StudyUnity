@@ -9,7 +9,9 @@ public class TestBullet : MonoBehaviour
     public GameObject particle;
     public AudioSource audioSource;
     public float moveSpeed = 10f;
+    public float damage = 20f;
 
+    Coroutine curCoroutine;
     public TestBullet()
     {
         //rb.AddForce()
@@ -21,15 +23,20 @@ public class TestBullet : MonoBehaviour
         audioSource.Play();
         rb = GetComponent<Rigidbody>();
         Vector3 direction = transform.position - turret.transform.position;
-        rb.AddForce(new Vector3(direction.x, 0f,direction.z) * moveSpeed, ForceMode.Impulse);
-        ShootingParticle();
+        rb.AddForce(new Vector3(direction.x, 0,direction.z) * moveSpeed, ForceMode.Impulse);
+        curCoroutine = StartCoroutine(DestroyBullet());
     }
-    IEnumerator ShootingParticle()
+    IEnumerator DestroyBullet()
     {
-        yield return new WaitForSeconds(2.0f);
-        Debug.Log("지우는 상태");
+        yield return new WaitForSeconds(10.0f);
         Destroy(this.gameObject);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(curCoroutine != null) StopCoroutine(curCoroutine);
+        Destroy(this.gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {

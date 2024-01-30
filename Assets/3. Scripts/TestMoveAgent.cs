@@ -8,12 +8,16 @@ using UnityEngine.UIElements;
 public class TestMoveAgent : MonoBehaviour
 {
     public Camera mainCamera;
-    public Transform cameraTransform;
+
+    public Transform bodyTransform;
+    public Transform turretTransform;
+
     public Rigidbody myRb;
     public BoxCollider myBcol;
 
     public float moveSpeed = 10f;
-    public float rotSpeed = 120f;
+    public float bodyRotSpeed = 120f;
+    public float turretRotSpeed = 200f;
 
     public float jumpForce = 5f;
 
@@ -58,16 +62,25 @@ public class TestMoveAgent : MonoBehaviour
         }
     }
 
-    public void Movement()
+    public void TurretRotatement()
+    {
+        float h = Input.GetAxis("Mouse X");
+        float v = Input.GetAxis("Mouse Y");
+        Vector3 dir = new Vector3(0, h*10f, 0);
+        Vector3 angle = turretTransform.transform.eulerAngles;
+        angle += turretRotSpeed * dir * Time.deltaTime;
+        turretTransform.eulerAngles = angle;
+    }
+
+    public void Rotatement()
     {
         float h = Input.GetAxis("Horizontal");
+        bodyTransform.transform.Rotate(new Vector3(0.0f, bodyRotSpeed * h * Time.deltaTime, 0.0f));
+    }
+    public void Movement()
+    {
         float v = Input.GetAxis("Vertical");
-
-        Vector3 moveDirection = new Vector3(h, 0, v);
-        
-        //moveDirection = cameraTransform.TransformDirection(moveDirection);
-        this.transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-        this.transform.Rotate(new Vector3(0.0f, rotSpeed * h * Time.deltaTime, 0.0f));
+        bodyTransform.transform.Translate(new Vector3(0, 0, v) * moveSpeed * Time.deltaTime);
     }
 
 
@@ -81,6 +94,8 @@ public class TestMoveAgent : MonoBehaviour
     void Update()
     {
         Jump();
+        TurretRotatement();
+        Rotatement();
         Movement();
     }
 }

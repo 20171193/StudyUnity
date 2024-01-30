@@ -1,9 +1,4 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TestMoveAgent : MonoBehaviour
 {
@@ -27,7 +22,7 @@ public class TestMoveAgent : MonoBehaviour
 
     public TestMoveAgent()
     {
-        try 
+        try
         {
             myRb = this.gameObject.GetComponent<Rigidbody>();
             myBcol = this.gameObject.GetComponent<BoxCollider>();
@@ -41,21 +36,21 @@ public class TestMoveAgent : MonoBehaviour
     {
         Debug.Log("충돌");
 
-        if(collision.gameObject.layer == Floor_Layer)
+        if (collision.gameObject.layer == Floor_Layer)
         {
             isGround = true;
         }
     }
     public void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.layer == Floor_Layer)
+        if (collision.gameObject.layer == Floor_Layer)
         {
             isGround = false;
         }
     }
     public void Jump()
     {
-        if(isGround && Input.GetKeyDown(KeyCode.Space))
+        if (isGround && Input.GetKeyDown(KeyCode.Space))
         {
             // 점프
             myRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -66,7 +61,7 @@ public class TestMoveAgent : MonoBehaviour
     {
         float h = Input.GetAxis("Mouse X");
         float v = Input.GetAxis("Mouse Y");
-        Vector3 dir = new Vector3(0, h*10f, 0);
+        Vector3 dir = new Vector3(0, h * 10f, 0);
         Vector3 angle = turretTransform.transform.eulerAngles;
         angle += turretRotSpeed * dir * Time.deltaTime;
         turretTransform.eulerAngles = angle;
@@ -80,17 +75,22 @@ public class TestMoveAgent : MonoBehaviour
     public void Movement()
     {
         float v = Input.GetAxis("Vertical");
-        bodyTransform.transform.Translate(new Vector3(0, 0, v) * moveSpeed * Time.deltaTime);
+        Vector3 moveDirection = bodyTransform.transform.forward;
+
+        this.transform.Translate(v * moveDirection * moveSpeed * Time.deltaTime);
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        Cursor.lockState = CursorLockMode.Locked;
 
-    // Update is called once per frame
+    }
+    private void FixedUpdate()
+    {
+
+    }
     void Update()
     {
         Jump();

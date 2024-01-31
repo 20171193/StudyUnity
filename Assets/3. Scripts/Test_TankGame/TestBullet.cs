@@ -12,10 +12,6 @@ public class TestBullet : MonoBehaviour
     public float damage = 20f;
 
     Coroutine curCoroutine;
-    public TestBullet()
-    {
-        //rb.AddForce()
-    }
 
     // Start is called before the first frame update
     void Start()

@@ -72,3 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /Assets/Imports
 /Packages
+/Assets/Imported Assets
+/Assets/Sci-Fi UI

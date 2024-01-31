@@ -61,8 +61,10 @@ public class TestMoveAgent : MonoBehaviour
     {
         float h = Input.GetAxis("Mouse X");
         float v = Input.GetAxis("Mouse Y");
+        
         Vector3 dir = new Vector3(0, h * 10f, 0);
         Vector3 angle = turretTransform.transform.eulerAngles;
+
         angle += turretRotSpeed * dir * Time.deltaTime;
         turretTransform.eulerAngles = angle;
     }

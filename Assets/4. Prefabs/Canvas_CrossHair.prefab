@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5833080015071980271}
   - component: {fileID: 8244016110107174763}
   - component: {fileID: 9163271869175905007}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas_CrossHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 702118748516188112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2397823576211310931}
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9163271869175905007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 9030270212860639122}
   - component: {fileID: 879118357847492961}
   - component: {fileID: 7571125250016613658}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 257735930434589446}
   - component: {fileID: 6835827461145627948}
   - component: {fileID: 3545698147560033326}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2397823576211310931}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: CrossHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}

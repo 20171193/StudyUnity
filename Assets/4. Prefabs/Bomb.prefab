@@ -49,10 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7268855050110334453}
-  turret: {fileID: 0}
+  aaa: 0
+  crossHair: {fileID: 0}
   particle: {fileID: 0}
   audioSource: {fileID: -634474202461867591}
-  moveSpeed: 10
+  projectileSpeed: 10
   damage: 20
 --- !u!54 &7268855050110334453
 Rigidbody:

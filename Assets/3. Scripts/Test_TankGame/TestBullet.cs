@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class TestBullet : MonoBehaviour
 {
     public Rigidbody rb;
-    public GameObject turret;
+    public GameObject crossHair;
     public GameObject particle;
+
     public AudioSource audioSource;
-    public float moveSpeed = 10f;
+    public float projectileSpeed = 10f;
     public float damage = 20f;
 
     Coroutine curCoroutine;
@@ -18,8 +20,9 @@ public class TestBullet : MonoBehaviour
     {
         audioSource.Play();
         rb = GetComponent<Rigidbody>();
-        Vector3 direction = transform.position - turret.transform.position;
-        rb.AddForce(new Vector3(direction.x, 0,direction.z) * moveSpeed, ForceMode.Impulse);
+        Vector3 direction = crossHair.transform.position - this.transform.position;
+        rb.AddForce(direction * projectileSpeed, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * 400f, ForceMode.Force);  // 포탄 중력적용
         curCoroutine = StartCoroutine(DestroyBullet());
     }
     IEnumerator DestroyBullet()
@@ -30,6 +33,8 @@ public class TestBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if(curCoroutine != null) StopCoroutine(curCoroutine);
+
+        
         Destroy(this.gameObject);
     }
 

@@ -12,6 +12,7 @@ public class TestMoveTank : MonoBehaviour
     public Transform tankBodyTransform;
 
     public float moveSpeed;       // 이동속도
+    public float maxVelocity;
 
     public float jumpPower = 5.0f;      // 점프력
     public float jumpCooltime = 2.0f;   // 점프 쿨타임
@@ -31,7 +32,7 @@ public class TestMoveTank : MonoBehaviour
     {
         isFlying = false;
         moveDirection = myRb.transform.forward;
-        moveSpeed = myRb.mass * 10f;
+        moveSpeed = myRb.mass * 20f;
     }
 
     #region Collision Fucntion
@@ -57,7 +58,19 @@ public class TestMoveTank : MonoBehaviour
     }
     private void Movement()     // Move
     {
-        myRb.AddForce(tankBodyTransform.forward * moveSpeed /* Time.deltaTime*/, ForceMode.Force);
+        myRb.AddForce(moveDirection * moveSpeed, ForceMode.Force);
+
+        if (myRb.velocity.x > 10) 
+            myRb.velocity = new Vector3(maxVelocity, myRb.velocity.y, myRb.velocity.z); 
+        else if(myRb.velocity.x < -10)
+            myRb.velocity = new Vector3(-maxVelocity, myRb.velocity.y, myRb.velocity.z);
+
+        if (myRb.velocity.z > 10)
+            myRb.velocity = new Vector3(myRb.velocity.x, myRb.velocity.y, maxVelocity);
+        else if (myRb.velocity.z < -10)
+            myRb.velocity = new Vector3(myRb.velocity.x, myRb.velocity.y, -maxVelocity);
+
+
     }
     private void Jumping()         // Start Jump
     {
@@ -76,9 +89,17 @@ public class TestMoveTank : MonoBehaviour
     }
 
 
+    IEnumerator PrintVelocity()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Debug.Log(myRb.velocity);
+        StartCoroutine(PrintVelocity());
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(PrintVelocity());
     }
     private void FixedUpdate()
     {

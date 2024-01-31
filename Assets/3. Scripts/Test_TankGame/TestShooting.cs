@@ -6,9 +6,19 @@ using static UnityEngine.ParticleSystem;
 
 public class TestShooting : MonoBehaviour
 {
-    public GameObject bullet;
-    public ParticleSystem myParticle;
+    public GameObject bulletPrefab;
+    public GameObject crossHair;
+
+    public ParticleSystem shootingParticle;
     public Transform shootingTransform;
+
+    [SerializeField]
+    bool isShootingMode;    // 조준 모드
+
+    private void Awake()
+    {
+        isShootingMode = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +29,25 @@ public class TestShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire2"))
         {
-            var temp = Instantiate(bullet, shootingTransform);
-            myParticle.Play();
-            temp.GetComponent<TestBullet>().turret = this.gameObject;
+            if (isShootingMode)
+            {
+                crossHair.gameObject.SetActive(false);
+                isShootingMode = false;
+            }
+            else
+            {
+                crossHair.gameObject.SetActive(true);
+                isShootingMode = true;
+            }
+        }
+
+        if (isShootingMode && Input.GetButtonDown("Fire1"))
+        {
+            var temp = Instantiate(bulletPrefab, shootingTransform.position, shootingTransform.rotation);
+            shootingParticle.Play();
+            temp.GetComponent<TestBullet>().crossHair = crossHair;
         }
     }
 }

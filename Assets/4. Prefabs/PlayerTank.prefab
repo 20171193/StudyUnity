@@ -247,8 +247,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5519471969301808218}
-  - component: {fileID: 5519471970295248511}
-  - component: {fileID: 8244184853246509692}
   m_Layer: 0
   m_Name: PlayerTank
   m_TagString: Untagged
@@ -272,43 +270,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5519471970295248511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519471969301584314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c62d24111cb5f4da7ad4065a8c0c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 5519471969813974341}
-  myRb: {fileID: 5519471969391373017}
-  myBcol: {fileID: 5519471969391373016}
-  tankBodyTransform: {fileID: 0}
-  moveSpeed: 10
-  jumpPower: 5
-  jumpCooltime: 2
-  isFlying: 0
-  isJumping: 0
-  moveDirection: {x: 0, y: 0, z: 0}
---- !u!114 &8244184853246509692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519471969301584314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccaa79254ed0a964bae13305f834d303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 4111704034661159881, guid: 8ad8acfac68c63e48b6b71ebd8c13472, type: 3}
-  myParticle: {fileID: 5519471969565484356}
-  shootingTransform: {fileID: 5519471969883287636}
 --- !u!1 &5519471969301584316
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,10 +740,5 @@ PrefabInstance:
 --- !u!4 &5519471969546040600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 486730, guid: 89e78efe92dfe5a42837b392cdb0bf9e, type: 3}
-  m_PrefabInstance: {fileID: 5519471969545951314}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &5519471969565484356 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 19807510, guid: 89e78efe92dfe5a42837b392cdb0bf9e, type: 3}
   m_PrefabInstance: {fileID: 5519471969545951314}
   m_PrefabAsset: {fileID: 0}

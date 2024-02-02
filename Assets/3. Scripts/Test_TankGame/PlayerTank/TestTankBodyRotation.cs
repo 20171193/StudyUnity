@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TestTankBodyRotation : MonoBehaviour
 {
@@ -9,22 +10,26 @@ public class TestTankBodyRotation : MonoBehaviour
     Transform bodyTransform;
 
     [SerializeField]
-    float bodyRotSpeed = 300f;   // 몸체 회전속도
+    public float bodyRotSpeed;   // 몸체 회전속도
+
+    Vector3 rotDirection;
 
     private void Awake()
     {
-        bodyTransform = gameObject.GetComponent<Transform>();
+        rotDirection = Vector3.zero;
     }
 
     public void Rotatement()
     {
-        bodyTransform.transform.Rotate(SetDirection());
+        bodyTransform.transform.Rotate(rotDirection);
     }
 
-    private Vector3 SetDirection()
+    private void OnRotate(InputValue value)
     {
-        float inputHzt = Input.GetAxis("Horizontal");
-        return new Vector3(0.0f, bodyRotSpeed * inputHzt * Time.deltaTime, 0.0f);
+        Vector2 getValue = value.Get<Vector2>();
+        Debug.Log(getValue);
+        //float inputHzt = Input.GetAxis("Horizontal");
+        rotDirection = new Vector3(0.0f,  getValue.x * bodyRotSpeed * Time.deltaTime, 0.0f);
     }
 
     // Update is called once per frame

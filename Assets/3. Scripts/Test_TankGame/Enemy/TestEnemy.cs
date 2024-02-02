@@ -49,7 +49,6 @@ public class TestEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("충돌체크");
         if (collision.gameObject.tag == "Bullet")
         {
             Debug.Log("총알확인");

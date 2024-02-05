@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TestMoveTank : MonoBehaviour
 {
@@ -31,34 +32,34 @@ public class TestMoveTank : MonoBehaviour
     private void Awake()
     {
         isFlying = false;
-        moveDirection = myRb.transform.forward;
+        moveDirection = Vector3.zero;
         moveSpeed = myRb.mass * 20f;
     }
 
-    #region Collision Fucntion
-    public void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        Debug.Log("충돌");
-        if(collision.gameObject.tag == "Floor")
-        {
-            if (jumpCoolTimeCor != null)
-                StopCoroutine(jumpCoolTimeCor);
-            isFlying = false;
-        }
+        StartCoroutine(PrintVelocity());
     }
-    public void OnCollisionExit(Collision collision)
+    private void FixedUpdate()
     {
+        Jumping();
+        Movement();
     }
-    #endregion
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isFlying) isJumping = true;
+    }
 
-    private Vector3 SetDirection() // Setting Move Direction
+    private void OnMove(InputValue value) // Setting Move Direction
     {
-        float inputVTC = Input.GetAxis("Vertical");
-        return tankBodyTransform.forward * inputVTC;
+        Vector2 getValue = value.Get<Vector2>();
+        moveDirection.x = getValue.x;
+        moveDirection.z = getValue.y;
     }
     private void Movement()     // Move
     {
-        myRb.AddForce(moveDirection * moveSpeed, ForceMode.Force);
+        //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        myRb.AddForce(tankBodyTransform.forward * moveDirection.z * moveSpeed, ForceMode.Force);
 
         if (myRb.velocity.x > 10) 
             myRb.velocity = new Vector3(maxVelocity, myRb.velocity.y, myRb.velocity.z); 
@@ -69,8 +70,6 @@ public class TestMoveTank : MonoBehaviour
             myRb.velocity = new Vector3(myRb.velocity.x, myRb.velocity.y, maxVelocity);
         else if (myRb.velocity.z < -10)
             myRb.velocity = new Vector3(myRb.velocity.x, myRb.velocity.y, -maxVelocity);
-
-
     }
     private void Jumping()         // Start Jump
     {
@@ -92,23 +91,24 @@ public class TestMoveTank : MonoBehaviour
     IEnumerator PrintVelocity()
     {
         yield return new WaitForSeconds(1.0f);
-        Debug.Log(myRb.velocity);
+        //Debug.Log("Agent Speed : " + myRb.velocity);
         StartCoroutine(PrintVelocity());
     }
 
     // Start is called before the first frame update
-    void Start()
+    #region Collision Fucntion
+    public void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(PrintVelocity());
+        Debug.Log("충돌");
+        if (collision.gameObject.tag == "Floor")
+        {
+            if (jumpCoolTimeCor != null)
+                StopCoroutine(jumpCoolTimeCor);
+            isFlying = false;
+        }
     }
-    private void FixedUpdate()
+    public void OnCollisionExit(Collision collision)
     {
-        Jumping();
-        Movement();
     }
-    void Update()
-    {
-        moveDirection = SetDirection();
-        if (Input.GetKeyDown(KeyCode.Space) && !isFlying) isJumping = true;
-    }
+    #endregion
 }

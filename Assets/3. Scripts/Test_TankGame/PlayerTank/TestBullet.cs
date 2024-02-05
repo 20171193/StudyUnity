@@ -10,7 +10,8 @@ public class TestBullet : MonoBehaviour
     public GameObject particle;
 
     public AudioSource audioSource;
-    public float projectileSpeed = 10f;
+    [HideInInspector]
+    public float projectileSpeed;
     public float damage = 20f;
 
     Coroutine curCoroutine;
@@ -22,7 +23,7 @@ public class TestBullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Vector3 direction = crossHair.transform.position - this.transform.position;
         rb.AddForce(direction * projectileSpeed, ForceMode.Impulse);
-        rb.AddForce(Vector3.down * 400f, ForceMode.Force);  // 포탄 중력적용
+        //rb.AddForce(Vector3.down * 400f, ForceMode.Force);  // 포탄 중력적용
         curCoroutine = StartCoroutine(DestroyBullet());
     }
     IEnumerator DestroyBullet()
@@ -32,8 +33,8 @@ public class TestBullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(curCoroutine != null) StopCoroutine(curCoroutine);
-
+        if (collision.gameObject.tag == "Player") return;
+        if (curCoroutine != null) StopCoroutine(curCoroutine);
         
         Destroy(this.gameObject);
     }

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class TestTurretAndCrossHair : MonoBehaviour
 {
-
-    private Transform turretTransform;
+    public Transform turretTransform;
 
     [SerializeField]
     float turretRotHztSpeed = 15f; // ÅÍ·¿ ÁÂ¿ì È¸Àü¼Óµµ
@@ -23,7 +22,6 @@ public class TestTurretAndCrossHair : MonoBehaviour
 
     private void Awake()
     {
-        turretTransform = gameObject.GetComponent<Transform>();
         angle = Vector3.zero;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -56,7 +54,7 @@ public class TestTurretAndCrossHair : MonoBehaviour
 
         yRotation += Input.GetAxis("Mouse X"); //turretRotHztSpeed;
         xRotation -= Input.GetAxis("Mouse Y"); //turretRotVtcSpeed;
-        xRotation = Mathf.Clamp(xRotation, -30f, 10f);
+        xRotation = Mathf.Clamp(xRotation, -80f, 10f);
     }
 
     public void TurretRotatement()

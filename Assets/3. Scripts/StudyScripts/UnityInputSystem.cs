@@ -13,6 +13,8 @@ public class UnityInputSystem : MonoBehaviour
 	 * 유니티는 다양한 타입의 입력기기(키보드 및 마우스, 조이스틱, 터치스크린 등)를 지원
 	 ************************************************************************/
 
+    public Vector3 moveDir;
+    Rigidbody rb;
     private void Update()
     {
         InputByDevice();
@@ -82,5 +84,19 @@ public class UnityInputSystem : MonoBehaviour
     private void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
+        moveDir.x = input.x;
+        moveDir.z = input.y;
+    }
+    private void Move()
+    {
+        transform.position += moveDir * 3f * Time.deltaTime;
+    }
+    private void OnJump(InputValue value)
+    {
+        Jump();
+    }
+    private void Jump()
+    {
+        rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
     }
 }

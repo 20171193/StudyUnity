@@ -25,7 +25,8 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _GLOSSYREFLECTIONS_OFF
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ENVIRONMENTREFLECTIONS_OFF
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -104,7 +105,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissionScaleUI: 0
-    - _EnvironmentReflections: 1
+    - _EnvironmentReflections: 0
     - _GlossMapScale: 0
     - _Glossiness: 0.36
     - _GlossyReflections: 0

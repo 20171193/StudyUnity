@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "Zoom",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "9b3b85fb-55e0-4edc-b243-298bd1f5024b",
                     "expectedControlType": "Button",
                     "processors": "",

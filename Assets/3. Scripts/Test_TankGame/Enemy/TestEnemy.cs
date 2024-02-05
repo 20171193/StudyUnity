@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Normal = 0
+}
+
 public class TestEnemy : MonoBehaviour
 {
     public Material hitMaterials;
@@ -12,7 +17,13 @@ public class TestEnemy : MonoBehaviour
 
     public GameObject particlePrefab;
 
-    public float ownHp = 100f;
+    public TestSpawner mySpawner;
+
+    [SerializeField]
+    float ownHp = 100f;
+
+    [Header("오브젝트 등록 번호")]
+    public int objectNumber;
 
     public void TakeDamage(float damage, Collision col)
     {
@@ -43,6 +54,7 @@ public class TestEnemy : MonoBehaviour
         Quaternion rot = Quaternion.FromToRotation(-Vector3.forward, cPoint.normal);
         var eParticle = Instantiate(particlePrefab, cPoint.point, rot);
         eParticle.GetComponent<ParticleSystem>().Play();
+        mySpawner.DeathObject(objectNumber);
         Destroy(eParticle, 2);
         Destroy(this.gameObject);
     }

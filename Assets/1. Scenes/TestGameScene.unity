@@ -403,8 +403,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4111704034661159881, guid: 8ad8acfac68c63e48b6b71ebd8c13472, type: 3}
   crossHair: {fileID: 9127587}
   zoomCanvas: {fileID: 2094570174}
-  crossHairBack: {fileID: 0}
-  crossHairBackImage: {fileID: 0}
+  crossHairBack: {fileID: 362085620}
+  crossHairBackImage: {fileID: 362085622}
   zoomOutCameraPos: {fileID: 1380941272}
   shootingParticle: {fileID: 1559807496}
   shootingTransform: {fileID: 103281296}
@@ -560,6 +560,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6423e59bdce2fae4a890f865e3edc663, type: 3}
+--- !u!1 &362085620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5106581161927766603, guid: e90669375d5249c41931f555594e7ae8, type: 3}
+  m_PrefabInstance: {fileID: 9127586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &362085622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2412113396813580861, guid: e90669375d5249c41931f555594e7ae8, type: 3}
+  m_PrefabInstance: {fileID: 9127586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362085620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &380323273
 PrefabInstance:
   m_ObjectHideFlags: 0

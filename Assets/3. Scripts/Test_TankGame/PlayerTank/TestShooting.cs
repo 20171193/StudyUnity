@@ -27,6 +27,8 @@ public class TestShooting : MonoBehaviour
     public ParticleSystem shootingParticle;
     public Transform shootingTransform;
 
+    private Animator tankAnim;
+
     [SerializeField]
     bool isShootingMode;    // 조준 모드
 
@@ -48,6 +50,7 @@ public class TestShooting : MonoBehaviour
         isShootingMode = false;
         crossHair.SetActive(false);
         zoomCanvas.SetActive(false);
+        tankAnim = gameObject.GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -63,6 +66,7 @@ public class TestShooting : MonoBehaviour
         shootingParticle.Play();
         temp.GetComponent<TestBullet>().crossHair = crossHair;
         temp.GetComponent<TestBullet>().projectileSpeed = bulletPower;
+        tankAnim.SetTrigger("Shoot");
     }
     private void Rebound()
     {

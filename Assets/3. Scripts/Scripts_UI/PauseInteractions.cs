@@ -16,11 +16,16 @@ public class PauseInteractions : MonoBehaviour
     }
     public void OnClickOption()
     {
-
+        // Open Option PopUp
     }
     public void OnClickExit()
     {
-
+        // Game Exit
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit(); 
+        #endif
     }
 
     IEnumerator ContinueTimer()

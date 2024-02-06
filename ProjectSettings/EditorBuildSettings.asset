@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/1. Scenes/TestTankScenes/TestTitleScene.unity
+    guid: 54cf16353f9962d45b8ca6d1f879f57d
+  - enabled: 1
+    path: Assets/1. Scenes/TestTankScenes/TestGameScene.unity
+    guid: 326cb1781befcd148a312b3d80803078
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 483a975589e244f48898d23e03b5befb, type: 2}

@@ -68,10 +68,6 @@ public class TestShooting : MonoBehaviour
         temp.GetComponent<TestBullet>().projectileSpeed = bulletPower;
         tankAnim.SetTrigger("Shoot");
     }
-    private void Rebound()
-    {
-
-    }
     private void OnShooting(InputValue value)
     {
         if (!isShortZoom && !isLongZoom) return;

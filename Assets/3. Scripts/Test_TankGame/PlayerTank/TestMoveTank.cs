@@ -99,8 +99,6 @@ public class TestMoveTank : MonoBehaviour
     #region Collision Fucntion
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Ãæµ¹");
-        Debug.Log(collision.gameObject);
         if (collision.gameObject.tag == "Floor")
         {
             if (jumpCoolTimeCor != null)

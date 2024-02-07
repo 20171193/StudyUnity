@@ -19,6 +19,41 @@ public class TestCameraManager : MonoBehaviour
     public CinemachineVirtualCamera[] cvCameras;
     public int curZoomType; // 현재 줌 타입
 
+    #region 싱글턴 메서드
+    private static TestCameraManager instance = null;
+
+    private void Awake()
+    {
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            cvCameras[(int)CameraZoomType.LongZoom].Priority = (int)CameraZoomType.LongZoom;
+            cvCameras[(int)CameraZoomType.ShortZoom].Priority = (int)CameraZoomType.ShortZoom;
+            cvCameras[(int)CameraZoomType.NormalZoom].Priority = (int)CameraZoomType.NormalZoom;
+
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+                Destroy(this.gameObject);
+        }
+        else
+            Debug.Log("Player null");
+    }
+
+    public static TestCameraManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                return null;
+            else
+                return instance;
+        }
+    }
+    #endregion
+
     public void ZoomIn(CameraZoomType zoomType)
     {
         ZoomOut();
@@ -44,37 +79,4 @@ public class TestCameraManager : MonoBehaviour
         cvCameras[(int)CameraZoomType.ShortZoom].Priority = (int)CameraZoomType.ShortZoom;
         cvCameras[(int)CameraZoomType.NormalZoom].Priority = (int)CameraZoomType.NormalZoom;
     }
-
-
-    #region 싱글턴 메서드
-    private static TestCameraManager instance = null;
-
-    private void Awake()
-    {
-        cvCameras[(int)CameraZoomType.LongZoom].Priority = (int)CameraZoomType.LongZoom;
-        cvCameras[(int)CameraZoomType.ShortZoom].Priority = (int)CameraZoomType.ShortZoom;
-        cvCameras[(int)CameraZoomType.NormalZoom].Priority = (int)CameraZoomType.NormalZoom;
-
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-            Destroy(this.gameObject);
-    }
-
-    public static TestCameraManager Instance
-    {
-        get
-        {
-            if (instance == null)
-                return null;
-            else
-                return instance;
-        }
-    }
-    #endregion
-    
-
 }

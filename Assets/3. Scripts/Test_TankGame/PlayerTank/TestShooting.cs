@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using static UnityEngine.ParticleSystem;
 
 public enum CameraZoomType
@@ -58,6 +59,9 @@ public class TestShooting : MonoBehaviour
     [SerializeField]
     bool isShortZoom = false;   // ¼ôÁÜ
 
+    public UnityEvent OnFiring;
+    public UnityEvent OnFired;
+
     Coroutine bulletPowerCo;    // ½´ÆÃ ÆÄ¿ö ÄÚ·çÆ¾
     Coroutine zoomTimerCo;   // ÁÜÀÎ ½Ã°£ ÄÚ·çÆ¾
 
@@ -71,11 +75,15 @@ public class TestShooting : MonoBehaviour
     }
     private void Fire(float power)
     {
+        OnFiring?.Invoke();
+
         var temp = Instantiate(bulletPrefab, shootingTransform.position, shootingTransform.rotation);
         shootingParticle.Play();
         temp.GetComponent<TestBullet>().crossHair = crossHair;
         temp.GetComponent<TestBullet>().projectileSpeed = bulletPower;
         tankAnim.SetTrigger("Shoot");
+
+        OnFired?.Invoke();
     }
 
     // mouse button callback

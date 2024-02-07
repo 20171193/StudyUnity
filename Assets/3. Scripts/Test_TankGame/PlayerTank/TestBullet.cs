@@ -33,8 +33,8 @@ public class TestBullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player") return;
-        if (curCoroutine != null) StopCoroutine(curCoroutine);
+        if (curCoroutine != null) 
+            StopCoroutine(curCoroutine);
         
         Destroy(this.gameObject);
     }

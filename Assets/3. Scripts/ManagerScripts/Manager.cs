@@ -9,12 +9,10 @@ public class Manager : MonoBehaviour
     [SerializeField] MySceneManager sceneManager;
     [SerializeField] FadeManager fadeManager;
     [SerializeField] TestSpawnManager spawnManager;
-    [SerializeField] TestCameraManager cameraManager;
 
     public static MySceneManager Scene { get { return instance.sceneManager; } } 
     public static FadeManager Fade { get { return instance.fadeManager; } }
     public static TestSpawnManager Spawn { get { return instance.spawnManager; } }
-    public static TestCameraManager Camera { get { return instance.cameraManager; } }
 
     private void Awake()
     {
@@ -41,5 +39,4 @@ public class Manager : MonoBehaviour
         }
     }
     #endregion
-
 }

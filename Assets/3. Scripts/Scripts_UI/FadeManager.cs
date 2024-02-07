@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public enum FadeType
 {
     IN = 0,
@@ -27,6 +29,7 @@ public class FadeManager : MonoBehaviour
 
         fadeImage = fadeObject.GetComponent<Image>();
         OnEndFade += EndFadeCoroutine;
+        
         Fade(FadeType.OUT);
     }
 
@@ -41,6 +44,7 @@ public class FadeManager : MonoBehaviour
         }
     }
     #endregion
+
     [Header("페이드 인/아웃 오브젝트")]
     [SerializeField]
     GameObject fadeObject;
@@ -116,7 +120,6 @@ public class FadeManager : MonoBehaviour
         }
         OnEndFadeOut?.Invoke();
     }
-
     IEnumerator FadeInOut(Action OnEndFadeInOut)
     {
         bool isIncrease = true;

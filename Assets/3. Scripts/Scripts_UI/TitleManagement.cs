@@ -14,7 +14,7 @@ public class TitleManagement : MonoBehaviour
 
     public void FadeTitle()
     {
-        fadeImage.SetActive(true);
+        //fadeImage.SetActive(true);
         titleAnimator.Play("StartAnimation");
         StartCoroutine(FadeCo());
     }

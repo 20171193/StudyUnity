@@ -14,37 +14,6 @@ public enum FadeType
 
 public class FadeManager : MonoBehaviour
 {
-    #region 싱글턴 메서드
-    private static FadeManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-            Destroy(this.gameObject);
-
-        fadeImage = fadeObject.GetComponent<Image>();
-        OnEndFade += EndFadeCoroutine;
-        
-        Fade(FadeType.OUT);
-    }
-
-    public static FadeManager Instance
-    {
-        get
-        {
-            if (instance == null)
-                return null;
-            else
-                return instance;
-        }
-    }
-    #endregion
-
     [Header("페이드 인/아웃 오브젝트")]
     [SerializeField]
     GameObject fadeObject;

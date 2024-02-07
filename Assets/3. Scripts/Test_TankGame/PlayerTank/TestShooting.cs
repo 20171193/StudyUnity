@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,8 +9,23 @@ using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
+public enum CameraZoomType
+{
+    // Index of cvCameras
+    LongZoom = 0,
+    ShortZoom = 1,
+    NormalZoom = 2,
+
+    CurZoom = 10    // ÇöÀç ÁÜÀÎ
+}
+
+
 public class TestShooting : MonoBehaviour
 {
+    [Header("INDEX [ Long:0 | Short:1 | Normal:2 ]")]
+    public CinemachineVirtualCamera[] cvCameras;
+    public int curZoomType; // ÇöÀç ÁÜ Å¸ÀÔ
+
     [Header("ÃÑ¾Ë ÇÁ¸®ÆÕ")]
     public GameObject bulletPrefab;
     [Header("Å©·Î½ºÇì¾î Äµ¹ö½º")]
@@ -51,15 +67,8 @@ public class TestShooting : MonoBehaviour
         crossHair.SetActive(false);
         zoomCanvas.SetActive(false);
         tankAnim = gameObject.GetComponent<Animator>();
+        ZoomOutSetting();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
-
     private void Fire(float power)
     {
         var temp = Instantiate(bulletPrefab, shootingTransform.position, shootingTransform.rotation);
@@ -68,62 +77,8 @@ public class TestShooting : MonoBehaviour
         temp.GetComponent<TestBullet>().projectileSpeed = bulletPower;
         tankAnim.SetTrigger("Shoot");
     }
-    private void OnShooting(InputValue value)
-    {
-        if (!isShortZoom && !isLongZoom) return;
 
-        if(value.isPressed)
-        {
-            bulletPowerCo = StartCoroutine(PressedShooting());
-        }
-        else
-        {
-            if (bulletPowerCo != null)
-                StopCoroutine(bulletPowerCo);
-            Fire(bulletPower);
-            bulletPower = 2.0f;
-            crossHairBack.transform.localRotation = Quaternion.identity;
-            crossHairBackImage.color = new Color(1, 1, 1, 0.3f);
-        }
-    }
-    IEnumerator PressedShooting( )
-    {
-        // ´ëÆ÷ ¼Óµµ Áõ°¡
-        while(true)
-        {
-            bulletPower += addBulletForce;
-            crossHairBack.transform.Rotate(0, 0, crossHairBack.transform.rotation.z + 5, Space.Self);
-            crossHairBackImage.color
-                = new Color(crossHairBackImage.color.r,  crossHairBackImage.color.g, crossHairBackImage.color.b, crossHairBackImage.color.a + 0.02f);
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    IEnumerator ZoomInTimer()
-    {
-        yield return new WaitForSeconds(zoomInTime);
-        ZoomIn(CameraZoomType.ShortZoom);
-        isShortZoom = true;
-        isLongZoom = false;
-    }
-    private void ZoomIn(CameraZoomType zoomType)
-    {
-        TestCameraManager.Instance.ZoomIn(zoomType);
-        crossHair.SetActive(true);
-        if (zoomType == CameraZoomType.LongZoom)
-            zoomCanvas.SetActive(true);
-    }
-    private void ZoomOut()
-    {
-        if(zoomCanvas.activeSelf)
-            zoomCanvas.SetActive(false);
-        if(crossHair.activeSelf)
-            crossHair.SetActive(false);
-        
-        isShortZoom = false;
-        isLongZoom = false;
-        TestCameraManager.Instance.ZoomOut();
-    }
+    // mouse button callback
     private void OnZoom(InputValue value)
     {
         // ´©¸£°í ÀÖ´Â °æ¿ì : ¼ôÁÜ
@@ -153,7 +108,7 @@ public class TestShooting : MonoBehaviour
                 // ÁÜ¾Æ¿ô
                 ZoomOut();
             }
-            else if(isLongZoom)
+            else if (isLongZoom)
             {
                 // ÄÚ·çÆ¾ Á¾·á ÈÄ ·ÕÁÜÀÎ
                 StopCoroutine(zoomTimerCo);
@@ -161,4 +116,88 @@ public class TestShooting : MonoBehaviour
             }
         }
     }
+    private void OnShooting(InputValue value)
+    {
+        if (!isShortZoom && !isLongZoom) return;
+
+        if (value.isPressed)
+        {
+            bulletPowerCo = StartCoroutine(PressedShooting());
+        }
+        else
+        {
+            if (bulletPowerCo != null)
+                StopCoroutine(bulletPowerCo);
+            Fire(bulletPower);
+            bulletPower = 2.0f;
+            crossHairBack.transform.localRotation = Quaternion.identity;
+            crossHairBackImage.color = new Color(1, 1, 1, 0.3f);
+        }
+    }
+
+    IEnumerator PressedShooting()
+    {
+        // ´ëÆ÷ ¼Óµµ Áõ°¡
+        while (true)
+        {
+            bulletPower += addBulletForce;
+            crossHairBack.transform.Rotate(0, 0, crossHairBack.transform.rotation.z + 5, Space.Self);
+            crossHairBackImage.color
+                = new Color(crossHairBackImage.color.r, crossHairBackImage.color.g, crossHairBackImage.color.b, crossHairBackImage.color.a + 0.02f);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    IEnumerator ZoomInTimer()
+    {
+        yield return new WaitForSeconds(zoomInTime);
+        ZoomIn(CameraZoomType.ShortZoom);
+        isShortZoom = true;
+        isLongZoom = false;
+    }
+    private void ZoomIn(CameraZoomType zoomType)
+    {
+        ZoomInSetting(zoomType);
+        crossHair.SetActive(true);
+        if (zoomType == CameraZoomType.LongZoom)
+            zoomCanvas.SetActive(true);
+    }
+    private void ZoomOut()
+    {
+        if (zoomCanvas.activeSelf)
+            zoomCanvas.SetActive(false);
+        if (crossHair.activeSelf)
+            crossHair.SetActive(false);
+
+        isShortZoom = false;
+        isLongZoom = false;
+        ZoomOutSetting();
+    }
+
+    public void ZoomInSetting(CameraZoomType zoomType)
+    {
+        ZoomOutSetting();
+        curZoomType = (int)zoomType;
+        switch (zoomType)
+        {
+            case CameraZoomType.LongZoom:
+                cvCameras[(int)CameraZoomType.LongZoom].Priority = (int)CameraZoomType.CurZoom;
+                break;
+            case CameraZoomType.ShortZoom:
+                cvCameras[(int)CameraZoomType.ShortZoom].Priority = (int)CameraZoomType.CurZoom;
+                break;
+            default:
+                curZoomType = (int)CameraZoomType.NormalZoom;
+                break;
+        }
+    }
+    public void ZoomOutSetting()
+    {
+        Debug.Log("zoom init");
+        curZoomType = (int)CameraZoomType.NormalZoom;
+        cvCameras[(int)CameraZoomType.LongZoom].Priority = (int)CameraZoomType.LongZoom;
+        cvCameras[(int)CameraZoomType.ShortZoom].Priority = (int)CameraZoomType.ShortZoom;
+        cvCameras[(int)CameraZoomType.NormalZoom].Priority = (int)CameraZoomType.NormalZoom;
+    }
+
+
 }

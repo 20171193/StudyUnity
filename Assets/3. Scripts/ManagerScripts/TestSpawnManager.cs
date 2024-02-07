@@ -11,38 +11,10 @@ public enum SpawnType
 
 public class TestSpawnManager : MonoBehaviour
 {
-    #region 싱글턴 메서드
-    private static TestSpawnManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-            Destroy(this.gameObject);
-    }
-
-    public static TestSpawnManager Instance
-    {
-        get
-        {
-            if (instance == null)
-                return null;
-            else
-                return instance;
-        }
-    }
-    #endregion
-
     [SerializeField]
     private TestSpawner[] enemySpawners;
-
     [SerializeField]
     private TestSpawner[] patSpawners;
-
 
     private TestSpawner GetEnableSpawner(SpawnType spawnType)
     {
